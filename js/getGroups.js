@@ -7,8 +7,7 @@ var Ajax = {
     init() {
 
         if(!this.ajax) { 
-            this.ajax = new XMLHttpRequest();   //toi se griji da inicializira ajax propertyto i da go vrushta
-
+            this.ajax = new XMLHttpRequest();
         }
         return this.ajax;
     },
@@ -24,8 +23,7 @@ var Ajax = {
         };
     },
 
-    post(url, data, callback) { 
-        //var request = this.init();
+    post(url, data, callback) {
         request.open("POST", url);
         request.send(data);
         request.onload = () => {
@@ -35,16 +33,32 @@ var Ajax = {
     }
 };
 
-var array = [];
-
+var txtGroups = "";
+var groups = [];
 document.getElementById("getGroups").addEventListener("click", function(){
-    if(btnClickedGroups=== false){
+    if(btnClickedGroups === false){
         btnClickedGroups = true;
         Ajax.get("http://worldcup.sfg.io/teams/group_results", (info) => {
+            txtGroups += "<h1>" + "Groups:" + "</h1>"
+            txtGroups += "<table border='1'>";
             //console.log(info);
             for(var i = 0; i < info.length; i++){
+                txtGroups += "<tr>";
                 console.log(info[i]);
+                JSON.stringify(info[i], function (key, value) {
+                    if (key == "letter" || key == "country") {
+                        groups.push(value);
+                        txtGroups += "<td>" +  key + ": " + value + "</td>";
+                    } 
+                    else {
+                      return value;
+                    }
+                });
+                txtGroups += "</tr>";
             }
+            txtGroups += "</table>";
+
+            document.getElementById("allGroups").innerHTML = txtGroups;
         });
     } 
     else{
