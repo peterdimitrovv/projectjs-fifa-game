@@ -5,19 +5,20 @@ var matches = [];
 document.getElementById("getMatches").addEventListener("click", function(){
     if(btnMatchesClicked === false){
         btnMatchesClicked = true;
-        Ajax.get("http://worldcup.sfg.io/matches", (info) => {
-            //console.log(info);
+        Ajax.get("http://worldcup.sfg.io/matches/", (info) => {
             txtMatches += "<h1>"+ "Matches:" +"</h1>";
             txtMatches += "<table border='1'>";
+            console.log(info);
             for(var i = 0; i < info.length; i++){
                 txtMatches += "<tr>";
                 console.log(info[i]);
                 JSON.stringify(info[i], function (key, value) {
                     if (key == "location" || key == "home_team_country" || key == "away_team_country" || key == "goals" || key == "penalties") {
-                        matches.push(value);
+                        matches.push(key + ": " + value);
                         txtMatches += "<td>" +  key + ": " + value + "</td>";
                     } 
-                    else {
+                    else 
+                    {
                       return value;
                     }
                 });

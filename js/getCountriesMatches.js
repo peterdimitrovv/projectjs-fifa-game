@@ -8,16 +8,17 @@ document.getElementById("getCountriesMatches").addEventListener("click", functio
         Ajax.get("http://worldcup.sfg.io/matches/country?fifa_code=ARG", (info) => {
             txtCountriesMatches += "<h1>" + "Countries Matches:" + "</h1>";
             txtCountriesMatches += "<table border='1'>";
-            //console.log(info);
+            console.log(info);
             for(var i = 0; i < info.length; i++){
                 txtCountriesMatches += "<tr>";
                 console.log(info[i]);
                 JSON.stringify(info[i], function (key, value) {
-                    if (key == "location" || key == "away_team_country" || key == "home_team_country" || key == "description" || key == "temp_celsius" || key == "temp_farenheit" || key == "wind_speed") {
-                        countriesMatches.push(value);
+                    if (key == "location" || key == "home_team_country"|| key == "away_team_country" || key == "description" || key == "temp_celsius" || key == "temp_farenheit" || key == "wind_speed") {
+                        countriesMatches.push(key + ": " + value);
                         txtCountriesMatches += "<td>" +  key + ": " + value + "</td>";
                     } 
-                    else {
+                    else 
+                    {
                       return value;
                     }
                 });

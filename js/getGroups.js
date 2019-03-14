@@ -8,13 +8,13 @@ document.getElementById("getGroups").addEventListener("click", function(){
         Ajax.get("http://worldcup.sfg.io/teams/group_results", (info) => {
             txtGroups += "<h1>" + "Groups:" + "</h1>"
             txtGroups += "<table border='1'>";
-            //console.log(info);
+            console.log(info);
             for(var i = 0; i < info.length; i++){
                 txtGroups += "<tr>";
                 console.log(info[i]);
                 JSON.stringify(info[i], function (key, value) {
                     if (key == "letter" || key == "country") {
-                        groups.push(value);
+                        groups.push(key + ": " + value);
                         txtGroups += "<td>" +  key + ": " + value + "</td>";
                     } 
                     else {
